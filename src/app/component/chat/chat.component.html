@@ -10,7 +10,7 @@
     </div>
     <div style="margin-top: 10px;">
         <label >message: </label>
-        <input type="text" size="40" [(ngModel)]="message"><br>
+        <input type="text" size="40" [(ngModel)]="message" (keyup.enter)="postMessage()"><br>
         <button class="button" style="margin-top: 10px;" (click)="postMessage()">Send</button>
         <button class="button" style="margin-left: 10px;" (click)="fetchMessage()">Refresh</button>
     </div>

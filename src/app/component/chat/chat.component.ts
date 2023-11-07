@@ -12,6 +12,7 @@ export class ChatComponent {
   token:any=""
   messages:string[]=[]
   message:string=""
+  match:boolean = false
   isMatched:string=""
 
   constructor(private router:Router,
@@ -24,6 +25,10 @@ export class ChatComponent {
     this.token = this.route.snapshot.paramMap.get('id')
     console.log(this.token)
     setInterval(()=>{
+      if(this.match){
+        this.matchUsers()
+
+      }
       this.fetchMessage()
     },1000)
 
@@ -31,7 +36,8 @@ export class ChatComponent {
 
   createGroup(){
     this.service.callCreateGroup(this.token).subscribe(
-      (res)=>{console.log(res)},
+      (res)=>{console.log(res)
+      this.match=true},
       (err)=>{console.log(err)}
     )
 
@@ -40,7 +46,8 @@ export class ChatComponent {
   matchUsers(){
     this.service.callMatch().subscribe(
     (res)=>{console.log(res)
-    this.isMatched="Matched"},
+    this.isMatched="Matched"
+  this.match=false},
     (err)=>{console.log(err)
     this.isMatched="Not matched"}
     )
@@ -48,7 +55,8 @@ export class ChatComponent {
 
   postMessage(){
     this.service.postMessage(this.message,this.token).subscribe(
-      (res)=>{console.log(res)},
+      (res)=>{console.log(res)
+      this.message=""},
       (err)=>{console.log(err)}
     )
   }
@@ -57,6 +65,8 @@ export class ChatComponent {
     console.log("Fetching messages")
     this.service.fetchMessages(this.token).subscribe(
       (res)=>{console.log(res)
+        this.isMatched="Matched"
+        this.match=false
         res = res.replace("["," ")
         res = res.replace("]"," ")
       this.messages=res.trim().split(',')},

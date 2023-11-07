@@ -1,12 +1,17 @@
 <div class="chat">
     <label>click here to Match</label>
     <div>
-        <button (click)="">Click</button>
+        <button (click)="matchUsers()">Match</button>
+        <button (click)="createGroup()">Ready</button>
+        <p>{{isMatched}}</p>
     </div>
     
     <br>
-    <textarea cols="50" rows="50"></textarea>
+        <div class="chatWindows">
+            <p *ngFor="let message of messages">{{message}}</p>
+        </div>
     <br>
-    <input type="text" >
-    <button>Start</button>
+    <input type="text" [(ngModel)]="message"><br>
+    <button (click)="postMessage()">Send</button>
+    <button (click)="fetchMessage()">Refresh</button>
 </div>

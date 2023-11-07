@@ -10,6 +10,9 @@ import { ChatserviceService } from 'src/service/chatservice.service';
 export class ChatComponent {
 
   token:any=""
+  messages:string[]=[]
+  message:string=""
+  isMatched:string=""
 
   constructor(private router:Router,
     private route: ActivatedRoute,
@@ -24,8 +27,35 @@ export class ChatComponent {
   }
 
   createGroup(){
-    this.service.
+    this.service.callCreateGroup(this.token).subscribe(
+      (res)=>{console.log(res)},
+      (err)=>{console.log(err)}
+    )
 
+  }
+
+  matchUsers(){
+    this.service.callMatch().subscribe(
+    (res)=>{console.log(res)
+    this.isMatched="Matched"},
+    (err)=>{console.log(err)
+    this.isMatched="Not matched"}
+    )
+  }
+
+  postMessage(){
+    this.service.postMessage(this.message,this.token).subscribe(
+      (res)=>{console.log(res)},
+      (err)=>{console.log(err)}
+    )
+  }
+
+  fetchMessage(){
+    this.service.fetchMessages(this.token).subscribe(
+      (res)=>{console.log(res)
+      this.messages=res.split(',')},
+      (err)=>{console.log(err)}
+    )
   }
 
 }

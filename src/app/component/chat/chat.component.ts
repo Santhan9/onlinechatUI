@@ -23,6 +23,9 @@ export class ChatComponent {
   ngOnInit(){
     this.token = this.route.snapshot.paramMap.get('id')
     console.log(this.token)
+    setInterval(()=>{
+      this.fetchMessage()
+    },1000)
 
   }
 
@@ -51,9 +54,12 @@ export class ChatComponent {
   }
 
   fetchMessage(){
+    console.log("Fetching messages")
     this.service.fetchMessages(this.token).subscribe(
       (res)=>{console.log(res)
-      this.messages=res.split(',')},
+        res = res.replace("["," ")
+        res = res.replace("]"," ")
+      this.messages=res.trim().split(',')},
       (err)=>{console.log(err)}
     )
   }

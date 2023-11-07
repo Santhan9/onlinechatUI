@@ -9,3 +9,8 @@
   width: 400px;
   border: 3px solid #73AD21;
 }
+
+.button{
+    font-size: 16px;
+    padding: 8px;
+}

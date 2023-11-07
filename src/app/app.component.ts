@@ -7,6 +7,6 @@ import { ChatserviceService } from 'src/service/chatservice.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'online-chat-app';
+  title = 'Free Online chatting app';
   
 }
